@@ -29,17 +29,16 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security;
 using System.Web.Http;
-using Autofac.Integration.Owin;
-using Owin;
+using Autofac.Integration.WebApi.Owin;
 
-namespace Autofac.Integration.WebApi.Owin
+namespace Owin
 {
     /// <summary>
     /// Extension methods for configuring the OWIN pipeline.
     /// </summary>
     [SecuritySafeCritical]
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static class OwinExtensions
+    public static class AutofacWebApiAppBuilderExtensions
     {
         /// <summary>
         /// Extends the Autofac lifetime scope added from the OWIN pipeline through to the Web API dependency scope.
