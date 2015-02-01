@@ -95,6 +95,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Autofac.Integration.WebApi.Owin.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
