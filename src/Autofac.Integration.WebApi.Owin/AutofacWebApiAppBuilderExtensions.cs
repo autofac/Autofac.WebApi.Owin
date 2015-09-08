@@ -73,6 +73,9 @@ namespace Owin
         [SecuritySafeCritical]
         public static IAppBuilder DisposeScopeOnAppDisposing(this IAppBuilder app, ILifetimeScope lifetimeScope)
         {
+            if (app == null) throw new ArgumentNullException("app");
+            if (lifetimeScope == null) throw new ArgumentNullException("lifetimeScope");
+
             var context = new OwinContext(app.Properties);
             var token = context.Get<CancellationToken>("host.OnAppDisposing");
 

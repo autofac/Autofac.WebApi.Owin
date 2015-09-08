@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Web.Http;
 using Autofac.Core;
@@ -59,6 +60,22 @@ namespace Autofac.Tests.Integration.WebApi.Owin
             var scope = new TestableLifetimeScope();
 
             Assert.That(() => app.DisposeScopeOnAppDisposing(scope), Throws.Nothing);
+        }
+
+        [Test]
+        public void DisposeScopeOnAppDisposingLifetimeScopeRequired()
+        {
+            var app = new AppBuilder();
+
+            Assert.That(() => app.DisposeScopeOnAppDisposing(null), Throws.InstanceOf<ArgumentNullException>());
+        }
+
+        [Test]
+        public void DisposeScopeOnAppDisposingAppBuildRequired()
+        {
+            var app = (IAppBuilder)null;
+
+            Assert.That(() => app.DisposeScopeOnAppDisposing(new TestableLifetimeScope()), Throws.InstanceOf<ArgumentNullException>());
         }
 
         class TestableLifetimeScope : LifetimeScope
