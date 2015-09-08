@@ -28,8 +28,11 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security;
+using System.Threading;
 using System.Web.Http;
+using Autofac;
 using Autofac.Integration.WebApi.Owin;
+using Microsoft.Owin;
 
 namespace Owin
 {
@@ -54,6 +57,32 @@ namespace Owin
 
             if (!configuration.MessageHandlers.OfType<DependencyScopeHandler>().Any())
                 configuration.MessageHandlers.Insert(0, new DependencyScopeHandler());
+
+            return app;
+        }
+
+        /// <summary>
+        /// Registers a callback to dispose an Autofac <see cref="ILifetimeScope"/>
+        /// when the OWIN <c>host.OnAppDisposing</c> event is triggered. This is a
+        /// convenience method that will dispose an Autofac container or child scope
+        /// when an OWIN application is shutting down.
+        /// </summary>
+        /// <param name="app">The application builder.</param>
+        /// <param name="lifetimeScope">The Autofac lifetime scope that should be disposed.</param>
+        /// <returns>The application builder.</returns>
+        [SecuritySafeCritical]
+        public static IAppBuilder DisposeScopeOnAppDisposing(this IAppBuilder app, ILifetimeScope lifetimeScope)
+        {
+            if (app == null) throw new ArgumentNullException("app");
+            if (lifetimeScope == null) throw new ArgumentNullException("lifetimeScope");
+
+            var context = new OwinContext(app.Properties);
+            var token = context.Get<CancellationToken>("host.OnAppDisposing");
+
+            if (token.CanBeCanceled)
+            {
+                token.Register(lifetimeScope.Dispose);
+            }
 
             return app;
         }
