@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Integration.WebApi.Owin", "src\Autofac.Integration.WebApi.Owin\Autofac.Integration.WebApi.Owin.csproj", "{1A3E68CF-E1D5-4E30-96C3-9B8687DF9283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Tests.Integration.WebApi.Owin", "tests\Autofac.Tests.Integration.WebApi.Owin\Autofac.Tests.Integration.WebApi.Owin.csproj", "{2EF2FBB2-77D0-4D85-936E-5A00881CF5F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Integration.WebApi.Owin.Test", "test\Autofac.Integration.WebApi.Owin.Test\Autofac.Integration.WebApi.Owin.Test.csproj", "{2EF2FBB2-77D0-4D85-936E-5A00881CF5F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

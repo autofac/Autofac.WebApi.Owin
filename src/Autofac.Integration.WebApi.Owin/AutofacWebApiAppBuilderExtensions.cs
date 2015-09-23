@@ -39,7 +39,6 @@ namespace Owin
     /// <summary>
     /// Extension methods for configuring the OWIN pipeline.
     /// </summary>
-    [SecuritySafeCritical]
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class AutofacWebApiAppBuilderExtensions
     {
@@ -49,7 +48,6 @@ namespace Owin
         /// <param name="app">The application builder.</param>
         /// <param name="configuration">The HTTP server configuration.</param>
         /// <returns>The application builder.</returns>
-        [SecuritySafeCritical]
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         public static IAppBuilder UseAutofacWebApi(this IAppBuilder app, HttpConfiguration configuration)
         {
@@ -70,7 +68,6 @@ namespace Owin
         /// <param name="app">The application builder.</param>
         /// <param name="lifetimeScope">The Autofac lifetime scope that should be disposed.</param>
         /// <returns>The application builder.</returns>
-        [SecuritySafeCritical]
         public static IAppBuilder DisposeScopeOnAppDisposing(this IAppBuilder app, ILifetimeScope lifetimeScope)
         {
             if (app == null) throw new ArgumentNullException("app");

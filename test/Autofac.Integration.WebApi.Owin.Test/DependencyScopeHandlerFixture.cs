@@ -5,28 +5,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Hosting;
 using Autofac.Integration.Owin;
-using Autofac.Integration.WebApi;
-using Autofac.Integration.WebApi.Owin;
 using Microsoft.Owin;
-using NUnit.Framework;
+using Xunit;
 
-namespace Autofac.Tests.Integration.WebApi.Owin
+namespace Autofac.Integration.WebApi.Owin.Test
 {
-    [TestFixture]
     public class DependencyScopeHandlerFixture
     {
-        [Test]
-        public void InvokeMethodThrowsExceptionIfRequestNull()
+        [Fact]
+        public async void InvokeMethodThrowsExceptionIfRequestNull()
         {
             var handler = new DependencyScopeHandler();
             var invoker = new HttpMessageInvoker(handler);
 
-            var exception = Assert.Throws<ArgumentNullException>(() => invoker.SendAsync(null, new CancellationToken()));
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => invoker.SendAsync(null, new CancellationToken()));
 
-            Assert.That(exception.ParamName, Is.EqualTo("request"));
+            Assert.Equal("request", exception.ParamName);
         }
 
-        [Test]
+        [Fact]
         public async void AddsAutofacDependencyScopeToHttpRequestMessage()
         {
             var request = new HttpRequestMessage();
@@ -36,14 +33,14 @@ namespace Autofac.Tests.Integration.WebApi.Owin
             var container = new ContainerBuilder().Build();
             context.Set(Constants.OwinLifetimeScopeKey, container);
 
-            var fakeHandler = new FakeInnerHandler {Message = new HttpResponseMessage(HttpStatusCode.OK)};
-            var handler = new DependencyScopeHandler {InnerHandler = fakeHandler};
+            var fakeHandler = new FakeInnerHandler { Message = new HttpResponseMessage(HttpStatusCode.OK) };
+            var handler = new DependencyScopeHandler { InnerHandler = fakeHandler };
             var invoker = new HttpMessageInvoker(handler);
             await invoker.SendAsync(request, new CancellationToken());
 
             var scope = (AutofacWebApiDependencyScope)request.Properties[HttpPropertyKeys.DependencyScope];
 
-            Assert.That(scope.LifetimeScope, Is.EqualTo(container));
+            Assert.Equal(container, scope.LifetimeScope);
         }
     }
 

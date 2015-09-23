@@ -2,20 +2,17 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Http;
-using Autofac.Core;
 using Autofac.Core.Lifetime;
 using Autofac.Core.Registration;
-using Autofac.Integration.WebApi.Owin;
 using Microsoft.Owin.Builder;
-using NUnit.Framework;
 using Owin;
+using Xunit;
 
-namespace Autofac.Tests.Integration.WebApi.Owin
+namespace Autofac.Integration.WebApi.Owin.Test
 {
-    [TestFixture]
     public class AutofacWebApiAppBuilderExtensionsFixture
     {
-        [Test]
+        [Fact]
         public void UseAutofacWebApiAddsDelegatingHandler()
         {
             var app = new AppBuilder();
@@ -23,10 +20,10 @@ namespace Autofac.Tests.Integration.WebApi.Owin
 
             app.UseAutofacWebApi(configuration);
 
-            Assert.That(configuration.MessageHandlers.OfType<DependencyScopeHandler>().Count(), Is.EqualTo(1));
+            Assert.Equal(1, configuration.MessageHandlers.OfType<DependencyScopeHandler>().Count());
         }
 
-        [Test]
+        [Fact]
         public void UseAutofacWebApiWillOnlyAddDelegatingHandlerOnce()
         {
             var app = new AppBuilder();
@@ -35,10 +32,10 @@ namespace Autofac.Tests.Integration.WebApi.Owin
             app.UseAutofacWebApi(configuration);
             app.UseAutofacWebApi(configuration);
 
-            Assert.That(configuration.MessageHandlers.OfType<DependencyScopeHandler>().Count(), Is.EqualTo(1));
+            Assert.Equal(1, configuration.MessageHandlers.OfType<DependencyScopeHandler>().Count());
         }
 
-        [Test]
+        [Fact]
         public void DisposeScopeOnAppDisposing()
         {
             var app = new AppBuilder();
@@ -50,46 +47,46 @@ namespace Autofac.Tests.Integration.WebApi.Owin
 
             tcs.Cancel();
 
-            Assert.That(scope.IsDisposed, Is.True, "Should dispose scope on host.OnAppDisposing");
+            Assert.True(scope.ScopeIsDisposed);
         }
 
-        [Test]
+        [Fact]
         public void DisposeScopeOnAppDisposingDoesNothingWhenNoTokenPresent()
         {
             var app = new AppBuilder();
             var scope = new TestableLifetimeScope();
 
-            Assert.That(() => app.DisposeScopeOnAppDisposing(scope), Throws.Nothing);
+            // XUnit doesn't have Assert.DoesNotThrow
+            app.DisposeScopeOnAppDisposing(scope);
         }
 
-        [Test]
+        [Fact]
         public void DisposeScopeOnAppDisposingLifetimeScopeRequired()
         {
             var app = new AppBuilder();
-
-            Assert.That(() => app.DisposeScopeOnAppDisposing(null), Throws.InstanceOf<ArgumentNullException>());
+            Assert.Throws<ArgumentNullException>(() => app.DisposeScopeOnAppDisposing(null));
         }
 
-        [Test]
+        [Fact]
         public void DisposeScopeOnAppDisposingAppBuildRequired()
         {
             var app = (IAppBuilder)null;
-
-            Assert.That(() => app.DisposeScopeOnAppDisposing(new TestableLifetimeScope()), Throws.InstanceOf<ArgumentNullException>());
+            Assert.Throws<ArgumentNullException>(() => app.DisposeScopeOnAppDisposing(new TestableLifetimeScope()));
         }
 
         class TestableLifetimeScope : LifetimeScope
         {
-            internal bool IsDisposed { get; set; }
+            public bool ScopeIsDisposed { get; set; }
 
-            public TestableLifetimeScope() : base(new ComponentRegistry())
+            public TestableLifetimeScope()
+                : base(new ComponentRegistry())
             {
             }
 
             protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
-                IsDisposed = true;
+                this.ScopeIsDisposed = true;
             }
         }
     }
