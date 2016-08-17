@@ -11,11 +11,11 @@
     <language>en-US</language>
     <title>Autofac ASP.NET Web API 2.2 OWIN Integration</title>
     <projectUrl>http://autofac.org</projectUrl>
-    <iconUrl>http://code.google.com/p/autofac/logo</iconUrl>
+    <iconUrl>https://cloud.githubusercontent.com/assets/1156571/13684110/16b8f152-e6bf-11e5-84ae-22c66c6d351a.png</iconUrl>
     <dependencies>
       <dependency id="Autofac" version="[3.5.0,5.0.0)" />
       <dependency id="Autofac.WebApi2" version="[3.4.0,5.0.0)" />
-      <dependency id="Autofac.Owin" version="[4.0.0-beta7-223,5.0.0)" />
+      <dependency id="Autofac.Owin" version="[4.0.0,5.0.0)" />
     </dependencies>
   </metadata>
 </package>
