@@ -16,7 +16,7 @@
     <dependencies>
       <dependency id="Autofac" version="[5.0.0,6.0.0)" />
       <dependency id="Autofac.WebApi2" version="[5.0.0,6.0.0)" />
-      <dependency id="Autofac.Owin" version="[4.0.0,5.0.0)" />
+      <dependency id="Autofac.Owin" version="[5.0.1,6.0.0)" />
     </dependencies>
   </metadata>
 </package>
