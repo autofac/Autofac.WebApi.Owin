@@ -4,6 +4,8 @@ environment:
 
 version: $(package_semantic_version).{build}
 
+image: Visual Studio 2019
+
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
