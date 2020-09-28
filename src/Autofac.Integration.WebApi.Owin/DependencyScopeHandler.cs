@@ -10,13 +10,16 @@ using Autofac.Integration.Owin;
 namespace Autofac.Integration.WebApi.Owin
 {
     [SecurityCritical]
-    class DependencyScopeHandler : DelegatingHandler
+    internal class DependencyScopeHandler : DelegatingHandler
     {
         [SecuritySafeCritical]
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
 
             var owinContext = request.GetOwinContext();
             if (owinContext == null) return base.SendAsync(request, cancellationToken);

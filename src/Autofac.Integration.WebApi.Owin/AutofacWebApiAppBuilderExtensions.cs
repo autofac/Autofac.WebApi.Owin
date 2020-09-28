@@ -52,12 +52,12 @@ namespace Owin
         {
             if (app == null)
             {
-                throw new ArgumentNullException("app");
+                throw new ArgumentNullException(nameof(app));
             }
 
             if (configuration == null)
             {
-                throw new ArgumentNullException("configuration");
+                throw new ArgumentNullException(nameof(configuration));
             }
 
             if (!configuration.MessageHandlers.OfType<DependencyScopeHandler>().Any())
