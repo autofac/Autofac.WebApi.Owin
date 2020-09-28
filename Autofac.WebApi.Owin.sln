@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Integration.WebApi.Owin", "src\Autofac.Integration.WebApi.Owin\Autofac.Integration.WebApi.Owin.csproj", "{1A3E68CF-E1D5-4E30-96C3-9B8687DF9283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autofac.Integration.WebApi.Owin", "src\Autofac.Integration.WebApi.Owin\Autofac.Integration.WebApi.Owin.csproj", "{1A3E68CF-E1D5-4E30-96C3-9B8687DF9283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Integration.WebApi.Owin.Test", "test\Autofac.Integration.WebApi.Owin.Test\Autofac.Integration.WebApi.Owin.Test.csproj", "{2EF2FBB2-77D0-4D85-936E-5A00881CF5F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autofac.Integration.WebApi.Owin.Test", "test\Autofac.Integration.WebApi.Owin.Test\Autofac.Integration.WebApi.Owin.Test.csproj", "{2EF2FBB2-77D0-4D85-936E-5A00881CF5F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D372C752-2D55-4E5D-943B-CEDD5BD00747}"
 EndProject
@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9AD9DBFC-4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01223B84-9EDA-4971-AEFE-491579D4E1D7}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
+		global.json = global.json
 		LICENSE = LICENSE
 		NuGet.Config = NuGet.Config
 		README.md = README.md
