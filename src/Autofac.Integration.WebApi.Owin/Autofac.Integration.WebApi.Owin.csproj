@@ -28,11 +28,6 @@
   <ItemGroup>
     <None Include="..\..\build\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Data.DataSetExtensions" />
-  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Autofac" Version="[5.0.0, 7.0.0)" />

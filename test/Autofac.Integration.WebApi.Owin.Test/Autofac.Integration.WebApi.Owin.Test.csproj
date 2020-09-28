@@ -8,6 +8,7 @@
     <ProjectReference Include="..\..\src\Autofac.Integration.WebApi.Owin\Autofac.Integration.WebApi.Owin.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0-develop-01143" />
     <PackageReference Include="xunit" Version="2.1.0" />
     <PackageReference Include="xunit.runner.console" Version="2.1.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.1.0" />
