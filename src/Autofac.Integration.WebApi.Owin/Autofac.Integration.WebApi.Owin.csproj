@@ -11,7 +11,9 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://autofac.org</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Release notes are at https://github.com/autofac/Autofac.WebApi.Owin/releases</PackageReleaseNotes>    
+    <PackageReleaseNotes>Release notes are at https://github.com/autofac/Autofac.WebApi.Owin/releases</PackageReleaseNotes>
+    <PackageId>Autofac.WebApi2.Owin</PackageId>
+    <AssemblyName>Autofac.Integration.WebApi.Owin</AssemblyName>
     <Company>Autofac</Company>
     <Authors>Autofac Contributors</Authors>
     <Product>Autofac</Product>
