@@ -28,7 +28,11 @@
   <ItemGroup>
     <None Include="..\..\build\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <AdditionalFiles Include="../../build/stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Autofac" Version="[6.0.0, 7.0.0)" />
     <PackageReference Include="Autofac.Owin" Version="[6.0.0, 7.0.0)" />

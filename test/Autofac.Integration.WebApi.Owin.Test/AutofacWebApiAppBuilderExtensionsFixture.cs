@@ -16,7 +16,7 @@ namespace Autofac.Integration.WebApi.Owin.Test
 
             app.UseAutofacWebApi(configuration);
 
-            Assert.Equal(1, configuration.MessageHandlers.OfType<DependencyScopeHandler>().Count());
+            Assert.Single(configuration.MessageHandlers.OfType<DependencyScopeHandler>());
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace Autofac.Integration.WebApi.Owin.Test
             app.UseAutofacWebApi(configuration);
             app.UseAutofacWebApi(configuration);
 
-            Assert.Equal(1, configuration.MessageHandlers.OfType<DependencyScopeHandler>().Count());
+            Assert.Single(configuration.MessageHandlers.OfType<DependencyScopeHandler>());
         }
     }
 }
