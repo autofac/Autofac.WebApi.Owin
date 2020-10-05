@@ -30,9 +30,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="[5.0.0, 7.0.0)" />
-    <PackageReference Include="Autofac.Owin" Version="[5.0.1, 7.0.0)" />
-    <PackageReference Include="Autofac.WebApi2" Version="[5.0.0, 7.0.0)" />
+    <PackageReference Include="Autofac" Version="[6.0.0, 7.0.0)" />
+    <PackageReference Include="Autofac.Owin" Version="[6.0.0, 7.0.0)" />
+    <PackageReference Include="Autofac.WebApi2" Version="[6.0.0, 7.0.0)" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="5.0.8" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.0">
