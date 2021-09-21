@@ -2,7 +2,7 @@
 
 OWIN support for the ASP.NET Web API integration for [Autofac](https://autofac.org).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/sllnx8g95topf79l?svg=true)](https://ci.appveyor.com/project/Autofac/autofac-webapi-owin)
+[![Build status](https://ci.appveyor.com/api/projects/status/sllnx8g95topf79l?svg=true)](https://ci.appveyor.com/project/Autofac/autofac-webapi-owin) [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/autofac/Autofac.WebApi.Owin)
 
 Please file issues and pull requests for this package in this repository rather than in the Autofac core repo.
 
