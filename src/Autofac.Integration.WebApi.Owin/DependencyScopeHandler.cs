@@ -45,6 +45,15 @@ namespace Autofac.Integration.WebApi.Owin
             }
 
             var dependencyScope = new AutofacWebApiDependencyScope(lifetimeScope);
+
+            // as we never call Dispose on dependency scope, it will be hanging in finalizer queue, consuming resources
+            // because we know it doesn't have anything to dispose, apart from lifetimeScope,
+            // and lifetimeScope will be definitely dispose in the calling code,
+            // we can quite safely suppress the finalization here to avoid long-living reference
+            #pragma warning disable CA1816 // Calling GC.SuppressFinalize on another object
+            GC.SuppressFinalize(dependencyScope);
+            #pragma warning restore CA1816 // Calling GC.SuppressFinalize on another object
+
             request.Properties[HttpPropertyKeys.DependencyScope] = dependencyScope;
 
             return base.SendAsync(request, cancellationToken);
