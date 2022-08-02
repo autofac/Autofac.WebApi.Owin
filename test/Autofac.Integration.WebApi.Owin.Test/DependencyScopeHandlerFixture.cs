@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Autofac Project. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -18,7 +21,7 @@ namespace Autofac.Integration.WebApi.Owin.Test
             var handler = new DependencyScopeHandler();
             var invoker = new HttpMessageInvoker(handler);
 
-            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => invoker.SendAsync(null, new CancellationToken()));
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => invoker.SendAsync(null, CancellationToken.None));
 
             Assert.Equal("request", exception.ParamName);
         }
@@ -41,9 +44,10 @@ namespace Autofac.Integration.WebApi.Owin.Test
             });
             var handler = new DependencyScopeHandler { InnerHandler = fakeHandler };
             var invoker = new HttpMessageInvoker(handler);
-            await invoker.SendAsync(request, new CancellationToken());
+            await invoker.SendAsync(request, CancellationToken.None);
 
-            Assert.NotNull(scope); //checking if the handler was in fact called
+            // checking if the handler was in fact called
+            Assert.NotNull(scope);
             Assert.Equal(container, scope.LifetimeScope);
         }
 
@@ -60,21 +64,20 @@ namespace Autofac.Integration.WebApi.Owin.Test
             var fakeHandler = new FakeInnerHandler(_ => new HttpResponseMessage(HttpStatusCode.OK));
             var handler = new DependencyScopeHandler { InnerHandler = fakeHandler };
             var invoker = new HttpMessageInvoker(handler);
-            await invoker.SendAsync(request, new CancellationToken());
+            await invoker.SendAsync(request, CancellationToken.None);
 
             Assert.DoesNotContain(HttpPropertyKeys.DependencyScope, request.Properties);
         }
 
-    }
+        private class FakeInnerHandler : HttpMessageHandler
+        {
+            private readonly Func<HttpRequestMessage, HttpResponseMessage> _delegate;
 
-    public class FakeInnerHandler : HttpMessageHandler
-    {
-        private readonly Func<HttpRequestMessage, HttpResponseMessage> _delegate;
+            public FakeInnerHandler(Func<HttpRequestMessage, HttpResponseMessage> @delegate)
+                => _delegate = @delegate;
 
-        public FakeInnerHandler(Func<HttpRequestMessage, HttpResponseMessage> @delegate)
-            => _delegate = @delegate;
-
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            => Task.FromResult(_delegate(request));
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+                => Task.FromResult(_delegate(request));
+        }
     }
 }
