@@ -1,58 +1,66 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <SignAssembly>true</SignAssembly>
     <!-- VersionPrefix patched by AppVeyor -->
     <VersionPrefix>0.0.1</VersionPrefix>
-    <AssemblyOriginatorKeyFile>..\..\Autofac.snk</AssemblyOriginatorKeyFile>
-    <CodeAnalysisRuleSet>..\..\build\Analyzers.ruleset</CodeAnalysisRuleSet>
-    <RepositoryUrl>https://github.com/autofac/Autofac.WebApi.Owin</RepositoryUrl>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageProjectUrl>https://autofac.org</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Release notes are at https://github.com/autofac/Autofac.WebApi.Owin/releases</PackageReleaseNotes>
-    <PackageId>Autofac.WebApi2.Owin</PackageId>
+    <!-- Assembly metadata -->
     <AssemblyName>Autofac.Integration.WebApi.Owin</AssemblyName>
-    <Company>Autofac</Company>
-    <Authors>Autofac Contributors</Authors>
-    <Product>Autofac</Product>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <Description>Autofac Web API Owin Integration</Description>
+    <AssemblyTitle>Autofac.Integration.WebApi.Owin</AssemblyTitle>
+    <Description>ASP.NET Web API OWIN integration for Autofac.</Description>
     <Copyright>Copyright © 2014 Autofac Contributors</Copyright>
+    <Authors>Autofac Contributors</Authors>
+    <Company>Autofac</Company>
+    <Product>Autofac</Product>
+    <AssemblyOriginatorKeyFile>../../Autofac.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <!-- Frameworks and language features -->
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CodeAnalysisRuleSet>../../build/Analyzers.ruleset</CodeAnalysisRuleSet>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Packaging -->
+    <PackageId>Autofac.WebApi2.Owin</PackageId>
+    <PackageTags>autofac;di;ioc;dependencyinjection</PackageTags>
+    <PackageReleaseNotes>Release notes are at https://github.com/autofac/Autofac.WebApi.Owin/releases</PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://autofac.org</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/autofac/Autofac.WebApi.Owin</RepositoryUrl>
+    <ContinuousIntegrationBuild Condition="'$(CI)' != '' ">true</ContinuousIntegrationBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedAllSources>true</EmbedAllSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\build\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="../../build/stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="[6.0.0, 7.0.0)" />
-    <PackageReference Include="Autofac.Owin" Version="[6.0.0, 7.0.0)" />
-    <PackageReference Include="Autofac.WebApi2" Version="[6.0.0, 7.0.0)" />
+    <PackageReference Include="Autofac" Version="[6.4.0, 7.0.0)" />
+    <PackageReference Include="Autofac.Owin" Version="7.0.0" />
+    <PackageReference Include="Autofac.WebApi2" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.0">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.113">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\build\icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\build\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
 </Project>
