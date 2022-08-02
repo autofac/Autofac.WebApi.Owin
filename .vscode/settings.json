@@ -1,0 +1,17 @@
+{
+  "cSpell.words": [
+    "autofac",
+    "browsable",
+    "cref",
+    "inheritdoc",
+    "langword",
+    "owin",
+    "paramref",
+    "seealso",
+    "typeparam",
+    "unmanaged",
+    "xunit"
+  ],
+  "dotnet-test-explorer.runInParallel": true,
+  "dotnet-test-explorer.testProjectPath": "test/**/*.Test.csproj"
+}
