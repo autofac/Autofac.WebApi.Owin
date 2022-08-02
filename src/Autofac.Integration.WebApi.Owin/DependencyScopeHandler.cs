@@ -47,7 +47,14 @@ namespace Autofac.Integration.WebApi.Owin
             var dependencyScope = new AutofacWebApiDependencyScope(lifetimeScope);
             request.Properties[HttpPropertyKeys.DependencyScope] = dependencyScope;
 
-            return base.SendAsync(request, cancellationToken);
+            try
+            {
+                return base.SendAsync(request, cancellationToken);
+            }
+            finally
+            {
+                request.Properties.Remove(HttpPropertyKeys.DependencyScope);
+            }
         }
     }
 }
