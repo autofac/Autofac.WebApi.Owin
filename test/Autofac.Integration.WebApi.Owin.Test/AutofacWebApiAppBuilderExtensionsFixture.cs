@@ -5,31 +5,30 @@ using System.Web.Http;
 using Microsoft.Owin.Builder;
 using Owin;
 
-namespace Autofac.Integration.WebApi.Owin.Test
+namespace Autofac.Integration.WebApi.Owin.Test;
+
+public class AutofacWebApiAppBuilderExtensionsFixture
 {
-    public class AutofacWebApiAppBuilderExtensionsFixture
+    [Fact]
+    public void UseAutofacWebApiAddsDelegatingHandler()
     {
-        [Fact]
-        public void UseAutofacWebApiAddsDelegatingHandler()
-        {
-            var app = new AppBuilder();
-            var configuration = new HttpConfiguration();
+        var app = new AppBuilder();
+        var configuration = new HttpConfiguration();
 
-            app.UseAutofacWebApi(configuration);
+        app.UseAutofacWebApi(configuration);
 
-            Assert.Single(configuration.MessageHandlers.OfType<DependencyScopeHandler>());
-        }
+        Assert.Single(configuration.MessageHandlers.OfType<DependencyScopeHandler>());
+    }
 
-        [Fact]
-        public void UseAutofacWebApiWillOnlyAddDelegatingHandlerOnce()
-        {
-            var app = new AppBuilder();
-            var configuration = new HttpConfiguration();
+    [Fact]
+    public void UseAutofacWebApiWillOnlyAddDelegatingHandlerOnce()
+    {
+        var app = new AppBuilder();
+        var configuration = new HttpConfiguration();
 
-            app.UseAutofacWebApi(configuration);
-            app.UseAutofacWebApi(configuration);
+        app.UseAutofacWebApi(configuration);
+        app.UseAutofacWebApi(configuration);
 
-            Assert.Single(configuration.MessageHandlers.OfType<DependencyScopeHandler>());
-        }
+        Assert.Single(configuration.MessageHandlers.OfType<DependencyScopeHandler>());
     }
 }
