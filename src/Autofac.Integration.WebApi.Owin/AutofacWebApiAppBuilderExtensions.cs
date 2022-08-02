@@ -20,7 +20,7 @@ public static class AutofacWebApiAppBuilderExtensions
     /// <param name="app">The application builder.</param>
     /// <param name="configuration">The HTTP server configuration.</param>
     /// <returns>The application builder for continued configuration.</returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="app" /> or <paramref name="configuration" /> is <see langword="null" />.
     /// </exception>
     [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "The handler created must exist for the entire application lifetime.")]
