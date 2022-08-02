@@ -42,7 +42,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="[6.4.0, 7.0.0)" />
     <PackageReference Include="Autofac.Owin" Version="7.0.0" />
-    <PackageReference Include="Autofac.WebApi2" Version="6.1.0" />
+    <PackageReference Include="Autofac.WebApi2" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
