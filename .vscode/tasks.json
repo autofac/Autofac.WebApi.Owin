@@ -13,6 +13,27 @@
         "kind": "build"
       },
       "label": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile",
+      "type": "shell"
+    },
+    {
+      "args": [
+        "test",
+        "${workspaceFolder}/Autofac.WebApi.Owin.sln",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary",
+        "--filter",
+        "FullyQualifiedName!~Benchmark"
+      ],
+      "command": "dotnet",
+      "group": {
+        "isDefault": true,
+        "kind": "test"
+      },
+      "label": "test",
       "problemMatcher": "$msCompile",
       "type": "process"
     }

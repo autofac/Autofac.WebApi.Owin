@@ -12,6 +12,11 @@
     "unmanaged",
     "xunit"
   ],
-  "dotnet-test-explorer.runInParallel": true,
-  "dotnet-test-explorer.testProjectPath": "test/**/*.Test.csproj"
+  "dotnet-test-explorer.testProjectPath": "test/**/*Test.csproj",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.resx": "$(capture).*.resx, $(capture).designer.cs, $(capture).designer.vb"
+  },
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.enableRoslynAnalyzers": true
 }
