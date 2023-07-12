@@ -42,13 +42,15 @@ internal class DependencyScopeHandler : DelegatingHandler
         var dependencyScope = new AutofacWebApiDependencyScope(lifetimeScope);
         request.Properties[HttpPropertyKeys.DependencyScope] = dependencyScope;
 
-        try
-        {
-            return base.SendAsync(request, cancellationToken);
-        }
-        finally
-        {
-            request.Properties.Remove(HttpPropertyKeys.DependencyScope);
-        }
+        // Using .ContinueWith instead of try/finally because you can't
+        // have async/await in [SecurityCritical] or [SecuritySafeCritical]
+        // marked code.
+        return base
+            .SendAsync(request, cancellationToken)
+            .ContinueWith(task =>
+            {
+                request.Properties.Remove(HttpPropertyKeys.DependencyScope);
+                return task.Result;
+            });
     }
 }

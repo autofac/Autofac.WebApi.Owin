@@ -64,14 +64,76 @@ public class DependencyScopeHandlerFixture
         Assert.DoesNotContain(HttpPropertyKeys.DependencyScope, request.Properties);
     }
 
+    [Fact]
+    public void RemoveAutofacDependencyScopeAfterTaskExecutes()
+    {
+        // Test using Task semantics rather than async/await to ensure both work.
+        var request = new HttpRequestMessage();
+        var context = new OwinContext();
+        request.Properties.Add("MS_OwinContext", context);
+
+        var container = new ContainerBuilder().Build();
+        context.Set(Constants.OwinLifetimeScopeKey, container);
+
+        var flag = new AutoResetEvent(false);
+        var fakeHandler = new FakeInnerHandler(_ =>
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                flag.WaitOne();
+                Assert.Contains(HttpPropertyKeys.DependencyScope, request.Properties);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+        });
+        var handler = new DependencyScopeHandler { InnerHandler = fakeHandler };
+        var invoker = new HttpMessageInvoker(handler);
+        var task = invoker.SendAsync(request, CancellationToken.None);
+
+        Assert.Contains(HttpPropertyKeys.DependencyScope, request.Properties);
+        flag.Set();
+        task.GetAwaiter().GetResult();
+        Assert.DoesNotContain(HttpPropertyKeys.DependencyScope, request.Properties);
+    }
+
+    [Fact]
+    public void RemoveAutofacDependencyScopeEvenIfTaskThrows()
+    {
+        // Test using Task semantics rather than async/await to ensure both work.
+        var request = new HttpRequestMessage();
+        var context = new OwinContext();
+        request.Properties.Add("MS_OwinContext", context);
+
+        var container = new ContainerBuilder().Build();
+        context.Set(Constants.OwinLifetimeScopeKey, container);
+
+        var fakeHandler = new FakeInnerHandler(_ =>
+        {
+            return Task.Factory.StartNew<HttpResponseMessage>(() =>
+            {
+                throw new DivideByZeroException();
+            });
+        });
+        var handler = new DependencyScopeHandler { InnerHandler = fakeHandler };
+        var invoker = new HttpMessageInvoker(handler);
+        var task = invoker.SendAsync(request, CancellationToken.None);
+
+        Assert.Contains(HttpPropertyKeys.DependencyScope, request.Properties);
+        Assert.Throws<AggregateException>(() => task.GetAwaiter().GetResult());
+        Assert.DoesNotContain(HttpPropertyKeys.DependencyScope, request.Properties);
+    }
+
     private class FakeInnerHandler : HttpMessageHandler
     {
-        private readonly Func<HttpRequestMessage, HttpResponseMessage> _delegate;
+        private readonly Func<HttpRequestMessage, Task<HttpResponseMessage>> _delegate;
 
         public FakeInnerHandler(Func<HttpRequestMessage, HttpResponseMessage> @delegate)
-            => _delegate = @delegate;
+            : this(request => Task.FromResult(@delegate(request)))
+        {
+        }
+
+        public FakeInnerHandler(Func<HttpRequestMessage, Task<HttpResponseMessage>> @delegate) => _delegate = @delegate;
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            => Task.FromResult(_delegate(request));
+            => _delegate(request);
     }
 }
