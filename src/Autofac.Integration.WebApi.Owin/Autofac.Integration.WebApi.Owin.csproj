@@ -45,6 +45,10 @@
     <PackageReference Include="Autofac.Owin" Version="7.1.0" />
     <PackageReference Include="Autofac.WebApi2" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.9" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
       <PrivateAssets>All</PrivateAssets>
