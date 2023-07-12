@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Autofac Project. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Web.Http.Hosting;
 using Autofac.Integration.Owin;
@@ -20,6 +21,7 @@ internal class DependencyScopeHandler : DelegatingHandler
     /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     [SecuritySafeCritical]
+    [SuppressMessage("CA2008", "CA2008", Justification = "The lifetime scope removal should execute in the default manner, controlled by the framework. This is TaskScheduler.Current, but should the framework behavior change for whatever reason, we'll go with it.")]
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         if (request == null)
@@ -53,8 +55,6 @@ internal class DependencyScopeHandler : DelegatingHandler
                     request.Properties.Remove(HttpPropertyKeys.DependencyScope);
                     return task.Result;
                 },
-                CancellationToken.None,
-                TaskContinuationOptions.ExecuteSynchronously,
-                TaskScheduler.FromCurrentSynchronizationContext());
+                TaskContinuationOptions.ExecuteSynchronously);
     }
 }
