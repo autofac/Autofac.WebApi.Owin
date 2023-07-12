@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autofac.Integration.WebApi.Owin", "src\Autofac.Integration.WebApi.Owin\Autofac.Integration.WebApi.Owin.csproj", "{1A3E68CF-E1D5-4E30-96C3-9B8687DF9283}"
 EndProject
