@@ -47,10 +47,14 @@ internal class DependencyScopeHandler : DelegatingHandler
         // marked code.
         return base
             .SendAsync(request, cancellationToken)
-            .ContinueWith(task =>
-            {
-                request.Properties.Remove(HttpPropertyKeys.DependencyScope);
-                return task.Result;
-            });
+            .ContinueWith(
+                task =>
+                {
+                    request.Properties.Remove(HttpPropertyKeys.DependencyScope);
+                    return task.Result;
+                },
+                CancellationToken.None,
+                TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.FromCurrentSynchronizationContext());
     }
 }
