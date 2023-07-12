@@ -21,7 +21,6 @@ internal class DependencyScopeHandler : DelegatingHandler
     /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     [SecuritySafeCritical]
-    [SuppressMessage("CA2008", "CA2008", Justification = "The lifetime scope removal should execute in the default manner, controlled by the framework. This is TaskScheduler.Current, but should the framework behavior change for whatever reason, we'll go with it.")]
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         if (request == null)
@@ -55,6 +54,8 @@ internal class DependencyScopeHandler : DelegatingHandler
                     request.Properties.Remove(HttpPropertyKeys.DependencyScope);
                     return task.Result;
                 },
-                TaskContinuationOptions.ExecuteSynchronously);
+                cancellationToken,
+                TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Current);
     }
 }
