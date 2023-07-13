@@ -6,6 +6,8 @@
     <Rule Id="CA1032" Action="None" />
     <!-- Change names to avoid reserved word overlaps (e.g., Delegate, GetType, etc.) - too many of these in the public API, we'd break if we fixed it. -->
     <Rule Id="CA1716" Action="None" />
+    <!-- Do not create tasks without passing a TaskScheduler - we're working with Task, make sure we do it right. -->
+    <Rule Id="CA2008" Action="Warning" />
     <!-- Implement serialization constructors - false positive when building .NET Core -->
     <Rule Id="CA2229" Action="None" />
     <!-- Mark ISerializable types with SerializableAttribute - false positive when building .NET Core -->

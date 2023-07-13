@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Autofac Project. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Web.Http.Hosting;
 using Autofac.Integration.Owin;
@@ -42,13 +43,19 @@ internal class DependencyScopeHandler : DelegatingHandler
         var dependencyScope = new AutofacWebApiDependencyScope(lifetimeScope);
         request.Properties[HttpPropertyKeys.DependencyScope] = dependencyScope;
 
-        try
-        {
-            return base.SendAsync(request, cancellationToken);
-        }
-        finally
-        {
-            request.Properties.Remove(HttpPropertyKeys.DependencyScope);
-        }
+        // Using .ContinueWith instead of try/finally because you can't
+        // have async/await in [SecurityCritical] or [SecuritySafeCritical]
+        // marked code.
+        return base
+            .SendAsync(request, cancellationToken)
+            .ContinueWith(
+                task =>
+                {
+                    request.Properties.Remove(HttpPropertyKeys.DependencyScope);
+                    return task.Result;
+                },
+                cancellationToken,
+                TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Current);
     }
 }
