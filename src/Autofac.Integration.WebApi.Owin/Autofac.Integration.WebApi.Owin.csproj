@@ -42,6 +42,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Using Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
     <PackageReference Include="Autofac.Owin" Version="7.1.0" />
     <PackageReference Include="Autofac.WebApi2" Version="6.1.1" />
