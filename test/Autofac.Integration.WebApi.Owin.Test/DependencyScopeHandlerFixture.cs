@@ -11,7 +11,7 @@ namespace Autofac.Integration.WebApi.Owin.Test;
 public class DependencyScopeHandlerFixture
 {
     [Fact]
-    public async void InvokeMethodThrowsExceptionIfRequestNull()
+    public async Task InvokeMethodThrowsExceptionIfRequestNull()
     {
         var handler = new DependencyScopeHandler();
         var invoker = new HttpMessageInvoker(handler);
@@ -22,7 +22,7 @@ public class DependencyScopeHandlerFixture
     }
 
     [Fact]
-    public async void AddsAutofacDependencyScopeToHttpRequestMessage()
+    public async Task AddsAutofacDependencyScopeToHttpRequestMessage()
     {
         var request = new HttpRequestMessage();
         var context = new OwinContext();
@@ -47,7 +47,7 @@ public class DependencyScopeHandlerFixture
     }
 
     [Fact]
-    public void RemoveAutofacDependencyScopeAfterTaskExecutes_Task()
+    public async Task RemoveAutofacDependencyScopeAfterTaskExecutes_Task()
     {
         var request = new HttpRequestMessage();
         var context = new OwinContext();
@@ -72,7 +72,7 @@ public class DependencyScopeHandlerFixture
 
         Assert.Contains(HttpPropertyKeys.DependencyScope, request.Properties);
         flag.Set();
-        task.GetAwaiter().GetResult();
+        await task;
         Assert.DoesNotContain(HttpPropertyKeys.DependencyScope, request.Properties);
     }
 
