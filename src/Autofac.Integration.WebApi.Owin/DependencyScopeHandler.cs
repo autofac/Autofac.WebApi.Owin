@@ -20,7 +20,7 @@ internal class DependencyScopeHandler : DelegatingHandler
     /// <param name="request">The HTTP request message to send to the server.</param>
     /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    [SecuritySafeCritical]
+    [SecurityCritical]
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         if (request == null)
