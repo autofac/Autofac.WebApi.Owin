@@ -31,7 +31,7 @@ public class DependencyScopeHandlerFixture
         var container = new ContainerBuilder().Build();
         context.Set(Constants.OwinLifetimeScopeKey, container);
 
-        AutofacWebApiDependencyScope scope = null;
+        AutofacWebApiDependencyScope? scope = null;
         var fakeHandler = new FakeInnerHandler(r =>
         {
             scope = (AutofacWebApiDependencyScope)r.Properties[HttpPropertyKeys.DependencyScope];

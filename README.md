@@ -2,8 +2,7 @@
 
 OWIN support for the ASP.NET Web API integration for [Autofac](https://autofac.org).
 
-[![Build status](https://github.com/autofac/Autofac.WebApi.Owin/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/autofac/Autofac.WebApi.Owin/actions/workflows/ci.yml)
-
+[![Build status](https://github.com/autofac/Autofac.WebApi.Owin/actions/workflows/main.yml/badge.svg)](https://github.com/autofac/Autofac.WebApi.Owin/actions/workflows/main.yml) [![codecov](https://codecov.io/gh/Autofac/Autofac.WebApi.Owin/branch/develop/graph/badge.svg)](https://codecov.io/gh/Autofac/Autofac.WebApi.Owin) [![NuGet](https://img.shields.io/nuget/v/Autofac.WebApi2.Owin.svg)](https://nuget.org/packages/Autofac.WebApi2.Owin)
 Please file issues and pull requests for this package [in this repository](https://github.com/autofac/Autofac.WebApi.Owin/issues) rather than in the Autofac core repo.
 
 - [Documentation](https://autofac.readthedocs.io/en/latest/integration/webapi.html)
