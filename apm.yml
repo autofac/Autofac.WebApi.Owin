@@ -1,6 +1,6 @@
 name: autofac.webapi.owin
 version: 1.0.0
-description: AI agent instructions for Autofac.WebApi.Owin, generated from autofac/.github by tools/Update-AiInstruction.ps1 there.
+description: AI agent instructions for Autofac.WebApi.Owin.
 author: Autofac Project
 targets:
   - claude
